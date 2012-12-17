@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Copyright 2012 California Institute of Technology. ALL RIGHTS
+RESERVED. U.S. Government Sponsorship acknowledged.
+-->
+<configure
+    xmlns='http://namespaces.zope.org/zope'
+    xmlns:browser='http://namespaces.zope.org/browser'
+    xmlns:grok='http://namespaces.zope.org/grok'
+    xmlns:genericsetup='http://namespaces.zope.org/genericsetup'
+    xmlns:zcml='http://namespaces.zope.org/zcml'
+    i18n_domain='edrnsite.vanity'>
+    <includeDependencies package='.' />
+    <grok:grok package='.' />
+    <genericsetup:registerProfile
+        name='default'
+        title='EDRN Site: Vanity Pages'
+        directory='profiles/default'
+        description='Personal pages for members of EDRN'
+        provides='Products.GenericSetup.interfaces.EXTENSION'
+    />
+    <include
+        zcml:condition='installed Products.GenericSetup.upgrade'
+        file='upgrades.zcml'
+    />
+</configure>
