@@ -11,10 +11,8 @@ RESERVED. U.S. Government Sponsorship acknowledged.
     <property name='allow_discussion'>False</property>
     <property name='global_allow'>True</property>
     <property name='filter_content_types'>True</property>
-    <property name='allowed_content_types'>
-        <element value='File' />
-    </property>
-    <property name='schema'>edrn.rdf.rdfsource.IRDFSource</property>
+    <property name='allowed_content_types'/>
+    <property name='schema'>edrnsite.vanity.bespokepage.IBespokePage</property>
     <property name='klass'>plone.dexterity.content.Container</property>
     <property name='add_permission'>cmf.AddPortalContent</property>
     <property name='behaviors'>
