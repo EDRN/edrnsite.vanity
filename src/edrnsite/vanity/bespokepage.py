@@ -7,6 +7,8 @@
 from zope import schema
 from plone.directives import form
 from edrnsite.vanity import MESSAGE_FACTORY as _
+from five import grok
+from plone.namedfile.field import NamedImage
 
 class IBespokePage(form.Schema):
     '''A bespoke page.'''
@@ -20,3 +22,14 @@ class IBespokePage(form.Schema):
         description=_(u'A short summary of the person.'),
         required=False,
     )
+    photograph = NamedImage(
+        title=_(u'Photograph'),
+        description=_(u'A picture of this person.'),
+        required=False,
+    )
+    
+
+class View(grok.View):
+    '''View for a bespoke page.'''
+    grok.context(IBespokePage)
+    grok.require('zope2.View')
