@@ -1,0 +1,42 @@
+<html
+    xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'
+    xmlns:tal='http://xml.zope.org/namespaces/tal'
+    xmlns:metal='http://xml.zope.org/namespaces/metal'
+    xmlns:i18n='http://xml.zope.org/namespaces/i18n'
+    i18n:domain='edrnsite.vanity'
+    metal:use-macro='context/main_template/macros/master'>
+    <head>
+        <title>Bespoke Page View</title>
+        <metal:block fill-slot='top_slot' tal:define='dummy_disable_border python:request.set("disable_border", 1);'/>
+    </head>
+    <body>
+        <metal:main fill-slot='main'>
+            <tal:main-macro metal:define-macro='main'>
+                <div class='bespokePersonalSection'>
+                    <div class='photograph' tal:define='photograph nocall:context/photograph' tal:condition='nocall:photograph'>
+                        <img src='#' alt='Meg Ryan' tal:replace='structure context/@@images/photograph/mini'/>
+                        <!-- <img src='#' alt='Meg Ryan'
+                            tal:define='scales context/@@images; portrait python:scales.scale("photograph", width=300, height=300);'
+                            tal:condition='portrait'
+                            tal:attributes='src portrait/url; width portrait/width; height portrait/height;'
+                        /> -->
+                        <!-- <img src='#' alt='Meg Ryan' width='100' height='100' tal:attributes='
+                            src    string:${context/absolute_url}/@@download/photograph/${photograph/filename};
+                            height photograph/_height|nothing;
+                            width  photograph/_width|nothing;
+                            alt    context/title;
+                        '/> -->
+                    </div>
+                    <div tal:replace='structure provider:plone.abovecontenttitle'/>
+                    <h1 class='documentFirstHeading' tal:content='context/title'>blah</h1>
+                    <!-- <div tal:replace='structure provider:plone.belowcontenttitle'/> no byline please -->
+                    <pre>p desc</pre>
+                    <p class='documentDescription' tal:content='context/description'>blah</p>
+                </div>
+                <div tal:replace='structure provider:plone.abovecontentbody'/>
+                <p>body here</p>
+                <div tal:replace='structure provider:plone.belowcontentbody'/>
+            </tal:main-macro>
+        </metal:main>
+    </body>
+</html>
