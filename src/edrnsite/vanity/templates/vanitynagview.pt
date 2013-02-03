@@ -7,6 +7,9 @@
     i18n:domain='edrnsite.vanity'>
     <head>
         <title>Vanity Nag View</title>
+        <metal:block fill-slot='base'>
+            <base target='_parent'/>
+        </metal:block>
         <metal:block fill-slot='top_slot' tal:define='
             dummy_disable_border python:request.set("disable_border", 1);
             dummy_disable_left   python:request.set("disable_plone.leftcolumn", 1);
@@ -20,16 +23,13 @@
                     By the way, <span i18n:name='personName' tal:replace='view/userName'>Jason Robards</span>&#x2026;
                 </h1>
                 <p i18n:translate='edrnsiteVanityBeenAWhile'>
-                    It's been a while since you updated
+                    It might be time to take a <em>fresh look</em> at
                     <a href='#' tal:attributes='href view/vanityPageURL' i18n:name='yourPage'>your very own page</a>
                     here on the EDRN Public Portal.
                 </p>
                 <p i18n:translate='edrnsiteVanityTakaAnotherLook'>
                     If you'd like to fix anything, <a href='#' i18n:name='edrnsiteVanityVisitItNow'
                         tal:attributes='href view/vanityPageURL'>why not visit it now</a>?
-                </p>
-                <p class='discreet'>
-                   <a href='#' i18n:translate='edrnsiteVanityNoThanks'>No thanks</a>.
                 </p>
             </tal:block>
         </metal:block>
