@@ -18,6 +18,7 @@ from zope.app.component.hooks import getSite
 from zope.component import getUtility
 
 # Utilities
+from datetime import date, datetime
 from DateTime import DateTime
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
@@ -59,10 +60,10 @@ def checkVanityPage(event):
         lastNotification = user.getProperty('vanityPageUpdateDate', None)
         if isinstance(lastNotification, DateTime):
             lastNotification = lastNotification.asdatetime()
-        memberPage = memberFolder[memberPageID]
-        modified = memberPageID.modified().asdatetime()
-        interval = modified - lastNotification
+        lastNotification = date(lastNotification.year, lastNotification.month, lastNotification.day)
+        interval = date.today() - lastNotification
         if interval > NAG_LIMIT:
-            _logger.user("User %s hasn't updated his vanity page in a long time (%d days); nagging", interval.days)
+            _logger.info("User %s hasn't been nagged in a long time (%d days); nagging", memberPageID, interval.days)
             session.set(VANITY_UPDATE_KEY, BESPOKE_OLD)
         _logger.info('User logged in: %s, last notified %r', user.getId(), user.getProperty('vanityPageUpdateDate'))
+    user.setProperties(vanityPageUpdateDate=datetime.now())
