@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<!--
-Copyright 2013 California Institute of Technology. ALL RIGHTS
-RESERVED. U.S. Government Sponsorship acknowledged.
--->
-<object name='portal_javascripts' meta_type='JavaScripts Registry' purge='False'>
-    <!-- Javascript to support EDRN Vanity overlays -->
-    <javascript id='++resource++edrnsite.vanity/vanity-overlay.js' />
-</object>
