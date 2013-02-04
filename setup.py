@@ -30,6 +30,8 @@ _requirements = [
     'Pillow',
     'plone.app.dexterity',
     'Products.CMFPlone',
+    'plone.namedfile>=2.0.1',
+    'plone.formwidget.namedfile',
     'rdflib',
     'setuptools',
 ]
