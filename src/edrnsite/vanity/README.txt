@@ -13,7 +13,30 @@ to do so, we'll need a test browser::
     >>> portal = layer['portal']    
     >>> portalURL = portal.absolute_url()
 
+This browser has full manager permissions, but we'll need a plainer browser to
+test some of the more user-level functions::
+
+    >>> userBrowser = Browser(app)
+
 Here we go.
+
+
+Folder Organization
+===================
+
+The intent of bespoke pages is to provide EDRN members with vanity sites where
+they can show off their research.  These will be stored in the member-pages
+folder in the site root.  Each page will have an ID that matches the member's
+account ID.
+
+
+
+Logging In
+==========
+
+Logging in should trigger an event which checks to see if the user has a
+bespoke page (a vanity page, personal page, etc.).  Let's see what
+
 
 
 Bespoke Page
@@ -25,7 +48,7 @@ personal attributes, etc.  For now, they can be added anywhere::
     >>> browser.open(portalURL)
     >>> l = browser.getLink(id='edrnsite-vanity-bespokepage')
     >>> l.url.endswith('++add++edrnsite.vanity.bespokepage')
-    >>> True
+    True
     >>> l.click()
     >>> browser.getControl(name='form.widgets.title').value = u'John Yaya'
     >>> browser.getControl(name='form.widgets.description').value = u"I'm the boss."
