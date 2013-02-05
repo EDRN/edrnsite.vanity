@@ -53,3 +53,6 @@ personal attributes, etc.  For now, they can be added anywhere::
     >>> browser.getControl(name='form.widgets.title').value = u'John Yaya'
     >>> browser.getControl(name='form.widgets.description').value = u"I'm the boss."
     >>> browser.getControl(name='form.buttons.save').click()
+    >>> 'john-yaya' in portal.keys()
+    True
+
