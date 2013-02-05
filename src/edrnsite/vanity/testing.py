@@ -3,11 +3,13 @@
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting, PLONE_FIXTURE
+from Testing.ZopeTestCase.utils import setupCoreSessions
 
 class EDRNSiteVanityLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
     def setUpZope(self, app, configurationContext):
         import edrnsite.vanity
+        setupCoreSessions(app)
         self.loadZCML(package=edrnsite.vanity)
     def setUpPloneSite(self, portal):
         self.applyProfile(portal, 'edrnsite.vanity:default')
