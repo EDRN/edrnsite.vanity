@@ -8,33 +8,61 @@
     <head>
         <title>Bespoke Page View</title>
         <metal:block fill-slot='top_slot' tal:define='dummy_disable_border python:request.set("disable_border", 1);'/>
+        <metal:block fill-slot='style_slot'>
+            <link rel='stylesheet' type='text/css' tal:define='navroot context/@@plone_portal_state/navigation_root_url'
+                tal:attributes='href string:${navroot}/++resource++edrnsite.vanity/bespoke.css'
+            />
+        </metal:block>
     </head>
     <body>
         <metal:main fill-slot='main'>
-            <tal:main-macro metal:define-macro='main'>
-                <div class='bespokePersonalSection'>
-                    <div class='photograph' tal:define='photograph nocall:context/photograph' tal:condition='nocall:photograph'>
-                        <img src='#' alt='Meg Ryan' tal:replace='structure context/@@images/photograph/mini'/>
-                        <!-- <img src='#' alt='Meg Ryan'
-                            tal:define='scales context/@@images; portrait python:scales.scale("photograph", width=300, height=300);'
-                            tal:condition='portrait'
-                            tal:attributes='src portrait/url; width portrait/width; height portrait/height;'
-                        /> -->
-                        <!-- <img src='#' alt='Meg Ryan' width='100' height='100' tal:attributes='
-                            src    string:${context/absolute_url}/@@download/photograph/${photograph/filename};
-                            height photograph/_height|nothing;
-                            width  photograph/_width|nothing;
-                            alt    context/title;
-                        '/> -->
-                    </div>
+            <tal:main-macro metal:define-macro='main' tal:define='isMine view/isMine;'>
+                <p tal:condition='isMine' class='yourVanityPage'>
+                    <span class='bespokeMessage' i18n:translate='bespokeYours'>
+                        This is <em i18n:name='emphaticYour'>your</em> page!
+                    </span>
+                    <a href='#' class='bespokeButton' i18n:translate='bespokeEditButton' tal:attributes='href view/editURL'>
+                        Update It
+                    </a>
+                </p>
+                <div class='bespokePersonalCard'>
                     <div tal:replace='structure provider:plone.abovecontenttitle'/>
+                    <div class='bespokePhoto' tal:define='photograph nocall:context/photograph' tal:condition='nocall:photograph'>
+                        <img src='#' alt='Meg Ryan' tal:replace='structure context/@@images/photograph/mini'/>
+                    </div>
                     <h1 class='documentFirstHeading' tal:content='context/title'>blah</h1>
                     <!-- <div tal:replace='structure provider:plone.belowcontenttitle'/> no byline please -->
-                    <pre>p desc</pre>
                     <p class='documentDescription' tal:content='context/description'>blah</p>
                 </div>
                 <div tal:replace='structure provider:plone.abovecontentbody'/>
-                <p>body here</p>
+
+                <div class='bespokeBody'>
+                    <h2 i18n:translate='bespokePubs'>My Publications</h2>
+                    <p class='discreet' i18n:translate='noBespokePubs'>I've claimed no publications as my own.</p>
+                    <h2 i18n:translate='bespokeProtocols'>My Protocols</h2>
+                    <p class='discreet' i18n:translate='noBespokeProtocols'>I've claimed no protocols as my own.</p>
+                    <h2 i18n:translate='bespokeData'>My Science Data</h2>
+                    <p class='discreet' i18n:translate='noBespokeData'>I've claimed no science data yet.</p>
+                </div>
+                
+                <div tal:condition='isMine' tal:omit-tag=''>
+                    <p tal:condition='view/isPublic' class='yourVanityPage'>
+                        <span class='bespokeMessage' i18n:translate='bespokePublic'>
+                            Your page is currently <strong i18n:name='public'>public</strong>.
+                        </span>
+                        <a href='#' class='bespokeButton' i18n:translate='bespokePrivatize' tal:attributes='href view/privateURL'>
+                            Make private
+                        </a>
+                    </p>
+                    <p tal:condition='view/isPrivate' class='yourVanityPage'>
+                        <span class='bespokeMessage' i18n:translate='bespokePrivate'>
+                            Your page is currently <strong i18n:name='private'>private</strong>.
+                        </span>
+                        <a href='#' class='bespokeButton' i18n:translate='bespokePublish' tal:attributes='href view/publishURL'>
+                            Make public
+                        </a>
+                    </p>
+                </div>
                 <div tal:replace='structure provider:plone.belowcontentbody'/>
             </tal:main-macro>
         </metal:main>
