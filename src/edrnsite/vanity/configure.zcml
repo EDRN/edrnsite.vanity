@@ -19,6 +19,12 @@ RESERVED. U.S. Government Sponsorship acknowledged.
         description='Personal pages for members of EDRN'
         provides='Products.GenericSetup.interfaces.EXTENSION'
     />
+    <genericsetup:importStep
+        name='edrnsite.vanity'
+        title='EDRN Site: Vanity Pages — Custom Import Handlers'
+        description='Adds the member-pages folder and sets its permissions for future vanity pages'
+        handler='edrnsite.vanity.setuphandlers.setupImportSteps'
+    />
     <include
         zcml:condition='installed Products.GenericSetup.upgrade'
         file='upgrades.zcml'
