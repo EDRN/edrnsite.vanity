@@ -3,6 +3,7 @@
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.WorkflowCore import WorkflowException
 
 def installMemberPagesFolder(portal):
     if 'member-pages' not in portal.keys():
@@ -15,7 +16,11 @@ def installMemberPagesFolder(portal):
     wfTool = getToolByName(portal, 'portal_workflow')
     state = wfTool.getInfoFor(folder, 'review_state')
     if state != 'published':
-        wfTool.doActionFor(folder, 'publish')
+        try:
+            wfTool.doActionFor(folder, 'publish')
+        except WorkflowException:
+            # Fsck if I know why
+            pass
     localRoles = folder.get_local_roles()
     found = False
     for principal, roles in localRoles:
