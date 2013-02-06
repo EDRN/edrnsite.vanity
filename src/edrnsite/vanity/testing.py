@@ -4,6 +4,7 @@
 
 from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting, PLONE_FIXTURE
 from Testing.ZopeTestCase.utils import setupCoreSessions
+from Products.CMFCore.utils import getToolByName
 
 class EDRNSiteVanityLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
@@ -12,8 +13,9 @@ class EDRNSiteVanityLayer(PloneSandboxLayer):
         setupCoreSessions(app)
         self.loadZCML(package=edrnsite.vanity)
     def setUpPloneSite(self, portal):
+        wfTool = getToolByName(portal, 'portal_workflow')
+        wfTool.setDefaultChain('plone_workflow')
         self.applyProfile(portal, 'edrnsite.vanity:default')
-
     
 EDRN_SITE_VANITY = EDRNSiteVanityLayer()
 EDRN_SITE_VANITY_INTEGRATION_TESTING = IntegrationTesting(
