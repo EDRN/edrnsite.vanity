@@ -14,13 +14,13 @@ def installMemberPagesFolder(portal):
     else:
         folder = portal['member-pages']
     wfTool = getToolByName(portal, 'portal_workflow')
-    state = wfTool.getInfoFor(folder, 'review_state')
-    if state != 'published':
-        try:
+    try:
+        state = wfTool.getInfoFor(folder, 'review_state')
+        if state != 'published':
             wfTool.doActionFor(folder, 'publish')
-        except WorkflowException:
-            # Fsck if I know why
-            pass
+    except WorkflowException:
+        # Fsck if I know why
+        pass
     localRoles = folder.get_local_roles()
     found = False
     for principal, roles in localRoles:
