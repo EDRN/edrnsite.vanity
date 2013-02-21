@@ -15,3 +15,6 @@ body {
 .vanityNagMessage {
     font-size: 14px;
 }
+#portal-breadcrumbs {
+    display: none !important;
+}
