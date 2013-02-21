@@ -6,6 +6,7 @@ RESERVED. U.S. Government Sponsorship acknowledged.
 
 body {
     padding: 20px;
+    background: #ccc url(++resource++edrnsite.vanity/linen-bg.png) repeat;
 }
 .vanityNagHeading {
     font: 36pt Georgia, Times, "Times New Roman", serif;
@@ -15,6 +16,12 @@ body {
 .vanityNagMessage {
     font-size: 14px;
 }
-#portal-breadcrumbs {
-    display: none !important;
+div#portal-breadcrumbs {
+    display: none;
+}
+div#content {
+    background: transparent;
+}
+h1 {
+    border-bottom: none;
 }
