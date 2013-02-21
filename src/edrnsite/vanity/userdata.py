@@ -44,7 +44,6 @@ class VaneUserDataPanelAdapter(UserDataPanelAdapter):
         if value is None:
             return date.min
         elif isinstance(value, basestring):
-            import pdb; pdb.set_trace()
             return date.strptime(value, '')
         elif isinstance(value, oldDateTime):
             dt = value.asdatetime()
