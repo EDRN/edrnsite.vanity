@@ -10,6 +10,7 @@ def installMemberPagesFolder(portal):
         folder = portal[portal.invokeFactory('Folder', 'member-pages')]
         folder.setTitle(u'Member Pages')
         folder.setDescription(u'Personal pages of EDRN members.')
+        folder.setExcludeFromNav(True)
         folder.reindexObject()
     else:
         folder = portal['member-pages']
