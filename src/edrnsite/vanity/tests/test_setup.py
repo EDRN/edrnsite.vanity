@@ -22,3 +22,8 @@ class SetupTest(unittest.TestCase):
         self.failUnless('vanity' in userActions, 'no vanity user action installed')
         vanity, logout = userActions.index('vanity'), userActions.index('logout')
         self.failUnless(vanity < logout, 'vanity action must appear above logout')
+    def testTypes(self):
+        '''Check types'''
+        typesTool = getToolByName(self.portal, 'portal_types')
+        site = typesTool['Site']
+        self.failUnless('edrnsite.vanity.bespokepage' in site.allowed_content_types, 'Bespoke Pages not allowed in Sites')

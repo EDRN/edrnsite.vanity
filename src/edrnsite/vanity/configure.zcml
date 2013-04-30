@@ -22,7 +22,7 @@ RESERVED. U.S. Government Sponsorship acknowledged.
     <genericsetup:importStep
         name='edrnsite.vanity'
         title='EDRN Site: Vanity Pages — Custom Import Handlers'
-        description='Adds the member-pages folder and sets its permissions for future vanity pages'
+        description='Prepares EDRN Sites permissions for future vanity pages'
         handler='edrnsite.vanity.setuphandlers.setupImportSteps'
     />
     <include

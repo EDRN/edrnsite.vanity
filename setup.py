@@ -26,6 +26,7 @@ _entryPoints     = {
     'z3c.autoinclude.plugin': ['target=plone'],
 }
 _requirements = [
+    'eke.site',
     'collective.autopermission',
     'Pillow',
     'plone.app.dexterity',

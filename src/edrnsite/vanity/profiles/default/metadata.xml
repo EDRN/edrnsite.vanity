@@ -8,5 +8,6 @@ RESERVED. U.S. Government Sponsorship acknowledged.
     <description>EDRN Site Vanity</description>
     <dependencies>
         <dependency>profile-plone.app.dexterity:default</dependency>
+        <dependency>profile-eke.site:default</dependency>
     </dependencies>
 </metadata>

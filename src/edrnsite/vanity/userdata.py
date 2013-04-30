@@ -26,7 +26,13 @@ class IVainUserDataSchema(IUserDataSchema):
         description=_(u"The date the user's vanity page was last updated; if unset, it means never updated."),
         required=False,
     )
-    
+    vanityPageLocation = schema.TextLine(
+        title=_(u'Vanity Page Location'),
+        description=_(u"Where in the site the user's vanity page is located."),
+        required=False,
+    )
+
+
 
 class UserDataSchemaProvider(object):
     '''Utility that provides the vain user data schema on demand'''
@@ -55,4 +61,12 @@ class VaneUserDataPanelAdapter(UserDataPanelAdapter):
     @vanityPageUpdateDate.setter
     def vanityPageUpdateDate(self, value):
         return self.context.setMemberProperties({'vanityPageUpdateDate': value})
+    @property
+    def vanityPageLocation(self):
+        '''Location of vanity page in the portal'''
+        return self.context.getProperty('vanityPageLocation', None)
+    @vanityPageLocation.setter
+    def vanityPageLocation(self, value):
+        return self.context.setMemberProperties({'vanityPageLocation': value})
+    
 
