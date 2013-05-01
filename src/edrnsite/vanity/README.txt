@@ -52,7 +52,37 @@ personal attributes, etc.  For now, they can be added anywhere::
     >>> l.click()
     >>> browser.getControl(name='form.widgets.title').value = u'John Yaya'
     >>> browser.getControl(name='form.widgets.description').value = u"I'm the boss."
+    >>> browser.getControl(name='form.widgets.showMbox:list').value = True
+    >>> browser.getControl(name='form.widgets.mbox').value = u'yaya@anus-mastery.com'
+    >>> browser.getControl(name='form.widgets.edrnTitle').value = u'Boss Man'
+    >>> browser.getControl(name='form.widgets.specialty').value = u'Proctology'
+    >>> browser.getControl(name='form.widgets.phone').value = u'+33 1 43 54 23 31'
     >>> browser.getControl(name='form.buttons.save').click()
     >>> 'john-yaya' in portal.keys()
     True
+
+Notice that you can toggle display of your email address.  As created above,
+John Yaya's email address is visible::
+
+    >>> browser.open(portalURL + '/john-yaya')
+    >>> u'yaya@anus-mastery.com' in browser.contents
+    True
+
+But it's not shown if the box is unchecked::
+
+    >>> browser.getLink('Update It').click()
+    >>> browser.getControl(name='form.widgets.showMbox:list').value = False
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> browser.open(portalURL + '/john-yaya')
+    >>> u'yaya@anus-mastery.com' in browser.contents
+    False
+
+Speaking of, the email address better look like an email address::
+
+    >>> browser.getLink('Update It').click()
+    >>> browser.getControl(name='form.widgets.mbox').value = u'No, you.'
+    >>> browser.getControl(name='form.buttons.save').click()
+    >>> browser.contents
+    '...There were some errors...Email Address...Constraint not satisfied...'
+
 

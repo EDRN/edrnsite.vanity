@@ -37,6 +37,16 @@
                 <div tal:replace='structure provider:plone.abovecontentbody'/>
 
                 <div class='bespokeBody'>
+                    <h2 i18n:translate='bespokePersonals'>Personal Info</h2>
+                    <p tal:condition='context/showMbox|nothing'>
+                        <label for='mbox' i18n:translate='labelMbox'>Email Address:</label>
+                        <a id='mbox' href='#' tal:attributes='href string:mailto:${context/mbox}'>
+                            <code tal:content='context/mbox'>
+                                whoever@bob.com
+                            </code>
+                        </a>
+                    </p>
+
                     <h2 i18n:translate='bespokePubs'>My Publications</h2>
                     <p class='discreet' i18n:translate='noBespokePubs'>I've claimed no publications as my own.</p>
                     <h2 i18n:translate='bespokeProtocols'>My Protocols</h2>

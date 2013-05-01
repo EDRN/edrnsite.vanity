@@ -36,12 +36,13 @@ def checkVanityPage(event):
         # We make member pages only for Plone accounts. Zope admin & others: shoo.
         return
     portal = getSite()
-    try:
-        memberFolder = portal.restrictedTraverse('member-pages')
-    except (KeyError, Unauthorized):
-        # member-pages folder is either missing or private, so don't bother
-        _logger.exception('No accessible member-pages folder in the portal; no bespoke pages')
-        return
+    # FIXME
+    # try:
+    #     memberFolder = portal.restrictedTraverse('member-pages')
+    # except (KeyError, Unauthorized):
+    #     # member-pages folder is either missing or private, so don't bother
+    #     _logger.exception('No accessible member-pages folder in the portal; no bespoke pages')
+    #     return
     normalizer = getUtility(IIDNormalizer)
     memberPageID = normalizer.normalize(user.getUserId())
     sdm = getToolByName(portal, 'session_data_manager')

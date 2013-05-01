@@ -11,6 +11,13 @@ from plone.directives import form
 from plone.namedfile.field import NamedImage
 from zope import schema
 from zope.component import getMultiAdapter
+import re
+
+_mboxRE = re.compile(r'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$', re.IGNORECASE)
+def _checkEmail(value):
+    '''Check if the given value is an email address.'''
+    return _mboxRE.match(value) is not None
+
 
 class IBespokePage(form.Schema):
     '''A bespoke page.'''
@@ -24,11 +31,38 @@ class IBespokePage(form.Schema):
         description=_(u'Type up a short summary. You might include research interests, personal background, funny quirks, etc.'),
         required=False,
     )
+    showMbox = schema.Bool(
+        title=_(u'Show My Email'),
+        description=_(u'Check the box if you want your email address displayed publicly. Leave it unchecked to keep it hidden.'),
+        required=False,
+    )
+    mbox = schema.TextLine(
+        title=_(u'Email Address'),
+        description=_(u"Address of your email inbox. We won't share it! But check the box above if want it shown to visitors."),
+        required=True,
+        constraint=_checkEmail
+    )
+    phone = schema.TextLine(
+        title=_(u'Telephone Number'),
+        description=_(u"Your phone number. (This will be visible to anyone, so clear it out if you want more privacy.)"),
+        required=False,
+    )
+    edrnTitle = schema.TextLine(
+        title=_(u'EDRN Title'),
+        description=_(u'Title or honorific given by the Early Detection Research Network'),
+        required=False,
+    )
+    specialty = schema.TextLine(
+        title=_(u'Speciality'),
+        description=_(u'Your area of specialization.'),
+        required=False,
+    )
     photograph = NamedImage(
         title=_(u'Photograph'),
         description=_(u'Upload a photograph of yourself. Please, keep it tasteful.'),
         required=False,
     )
+    
     
 
 class View(grok.View):
