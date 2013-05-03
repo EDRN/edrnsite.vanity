@@ -7,6 +7,8 @@
 
 from edrnsite.vanity.testing import EDRN_SITE_VANITY_INTEGRATION_TESTING
 from Products.CMFCore.utils import getToolByName
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 import unittest2 as unittest
 
 class SetupTest(unittest.TestCase):
@@ -27,3 +29,8 @@ class SetupTest(unittest.TestCase):
         typesTool = getToolByName(self.portal, 'portal_types')
         site = typesTool['Site']
         self.failUnless('edrnsite.vanity.bespokepage' in site.allowed_content_types, 'Bespoke Pages not allowed in Sites')
+    def testRegistry(self):
+        '''Check registry'''
+        registry = getUtility(IRegistry)
+        enable = registry['edrnsite.vanity.enable']
+        self.failUnless(enable, 'edrnsite.vanity.enable should default to True')
