@@ -7,6 +7,7 @@
 from Acquisition import aq_inner
 from edrnsite.vanity import MESSAGE_FACTORY as _
 from five import grok
+from plone.directives import dexterity
 from plone.directives import form
 from plone.namedfile.field import NamedImage
 from zope import schema
@@ -60,6 +61,24 @@ class IBespokePage(form.Schema):
     photograph = NamedImage(
         title=_(u'Photograph'),
         description=_(u'Upload a photograph of yourself. Please, keep it tasteful.'),
+        required=False,
+    )
+    dexterity.write_permission(siteName='cmf.ManagePortal')
+    siteName = schema.TextLine(
+        title=_(u'Site Name'),
+        description=_(u'Name of the site where you work.'),
+        required=False,
+    )
+    dexterity.write_permission(memberType='cmf.ManagePortal')
+    memberType = schema.TextLine(
+        title=_(u'Member Type'),
+        description=_(u'What particular kind of member site this.'),
+        required=False,
+    )
+    dexterity.write_permission(piUID='cmf.ManagePortal')
+    piUID = schema.TextLine(
+        title=_(u'PI UID'),
+        description=_(u'Unique identifier of the principal investigator of the site where this person works.'),
         required=False,
     )
     
