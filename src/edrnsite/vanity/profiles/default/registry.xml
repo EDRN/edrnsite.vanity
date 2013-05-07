@@ -8,6 +8,6 @@ RESERVED. U.S. Government Sponsorship acknowledged.
         <field type='plone.registry.field.Bool'>
             <title>Enable</title>
         </field>
-        <value>True</value>
+        <value>False</value>
     </record>
 </registry>
