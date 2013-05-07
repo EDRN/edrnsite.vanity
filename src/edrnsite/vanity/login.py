@@ -11,7 +11,7 @@ from Products.PlonePAS.plugins.ufactory import PloneUser
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 
 # Vanity
-from edrnsite.vanity import VANITY_UPDATE_KEY, BESPOKE_WELCOME, BESPOKE_OLD, NAG_LIMIT
+from edrnsite.vanity import VANITY_UPDATE_KEY, BESPOKE_WELCOME, BESPOKE_OLD, NAG_LIMIT, vanityPagesEnabled
 
 # Zope component arch
 from zope.app.component.hooks import getSite
@@ -31,11 +31,21 @@ def checkVanityPage(event):
     '''Upon logging in, check to see if the user has a vanity page.  If not, make one.
     If so, see if the user has visited it recently.  If not, nag the user.
     '''
+    if not vanityPagesEnabled(): return
+    portal = getSite()
+
+    # Now check the user
     user = event.object
     if not isinstance(user, PloneUser):
         # We make member pages only for Plone accounts. Zope admin & others: shoo.
         return
-    portal = getSite()
+
+    # Find the user's page
+    normalizer = getUtility(IIDNormalizer)
+    catalog = getToolByName(portal, 'portal_catalog')
+    results = catalog()
+
+    memberPageID = normalizer.normalize(user.getUserId())
     # FIXME
     # try:
     #     memberFolder = portal.restrictedTraverse('member-pages')
