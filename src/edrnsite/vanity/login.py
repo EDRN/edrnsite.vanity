@@ -14,7 +14,7 @@ from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from edrnsite.vanity import VANITY_UPDATE_KEY, BESPOKE_WELCOME, BESPOKE_OLD, NAG_LIMIT, vanityPagesEnabled
 
 # Zope component arch
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from zope.component import getUtility
 
 # Utilities

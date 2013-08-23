@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Copyright 2012 California Institute of Technology. ALL RIGHTS
+# Copyright 2012–2013 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from setuptools import setup, find_packages
@@ -29,12 +29,13 @@ _requirements = [
     'eke.site',
     'collective.autopermission',
     'Pillow',
-    'plone.app.dexterity',
+    'plone.app.dexterity [grok]',
     'Products.CMFPlone',
     'plone.namedfile>=2.0.1',
     'plone.formwidget.namedfile',
     'rdflib',
     'setuptools',
+    'z3c.autoinclude',
 ]
 _extras = {
     'test': ['plone.app.testing'],
