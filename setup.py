@@ -9,7 +9,7 @@ import os.path
 # ------------
 
 _name            = 'edrnsite.vanity'
-_version         = '1.0.2'
+_version         = '1.0.3'
 _description     = 'EDRN Site Vanity'
 _url             = 'http://cancer.jpl.nasa.gov/'
 _downloadURL     = 'http://oodt.jpl.nasa.gov/dist/edrnsite'
