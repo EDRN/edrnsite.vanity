@@ -17,7 +17,7 @@ _author          = 'Sean Kelly'
 _authorEmail     = 'sean.kelly@jpl.nasa.gov'
 _maintainer      = 'Sean Kelly'
 _maintainerEmail = 'sean.kelly@jpl.nasa.gov'
-_license         = 'Proprietary'
+_license         = 'ALv2'
 _namespaces      = ['edrnsite']
 _zipSafe         = False
 _keywords        = 'rdf web zope plone cancer bioinformatics detection informatics edrn personal'
@@ -46,7 +46,7 @@ _classifiers = [
     'Framework :: Plone',
     'Intended Audience :: Healthcare Industry',
     'Intended Audience :: Science/Research',
-    'License :: Other/Proprietary License',
+    'License :: OSI Approved :: Apache Software License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Topic :: Internet :: WWW/HTTP',
