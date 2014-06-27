@@ -11,8 +11,6 @@ import os.path
 _name            = 'edrnsite.vanity'
 _version         = '1.0.3'
 _description     = 'EDRN Site Vanity'
-_url             = 'http://cancer.jpl.nasa.gov/'
-_downloadURL     = 'http://oodt.jpl.nasa.gov/dist/edrnsite'
 _author          = 'Sean Kelly'
 _authorEmail     = 'sean.kelly@jpl.nasa.gov'
 _maintainer      = 'Sean Kelly'
@@ -62,7 +60,7 @@ def _read(*rnames):
 
 _header = '*' * len(_name) + '\n' + _name + '\n' + '*' * len(_name)
 _longDescription = _header + '\n\n' + _read('README.rst') + '\n\n' + _read('docs', 'INSTALL.txt') + '\n\n' \
-    + _read('docs', 'HISTORY.txt') + '\n\n' + _read('docs', 'LICENSE.txt')
+    + _read('docs', 'HISTORY.txt') + '\n'
 open('doc.txt', 'w').write(_longDescription)
 
 setup(
@@ -70,7 +68,6 @@ setup(
     author_email=_authorEmail,
     classifiers=_classifiers,
     description=_description,
-    download_url=_downloadURL,
     entry_points=_entryPoints,
     extras_require=_extras,
     include_package_data=True,
@@ -84,7 +81,7 @@ setup(
     namespace_packages=_namespaces,
     packages=find_packages('src', exclude=['ez_setup', 'distribute_setup', 'bootstrap']),
     package_dir={'': 'src'},
-    url=_url,
+    url='https://github.com/EDRN/' + _name,
     version=_version,
     zip_safe=_zipSafe,
 )
