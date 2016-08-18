@@ -5,7 +5,9 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 
+
 def prepareSites(portal):
+    # I think this is vestigial; I believe I'm putting all bespokepages under /member-pages
     wfTool, catalog = getToolByName(portal, 'portal_workflow'), getToolByName(portal, 'portal_catalog')
     results = catalog(portal_type='Site')
     for site in [i.getObject() for i in results]:

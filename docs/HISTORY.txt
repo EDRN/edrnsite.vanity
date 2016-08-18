@@ -6,6 +6,12 @@ identifiers appear, you can find more about them by visiting this project's
 issue tracker at https://oodt.jpl.nasa.gov/jira/browse/CA.
 
 
+1.0.4 — TBD
+-----------
+
+• …
+
+
 1.0.3 — I Had Some Chicken; Pass Me the FLOSS
 ---------------------------------------------
 

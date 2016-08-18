@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Copyright 2013 California Institute of Technology. ALL RIGHTS
+# Copyright 2013-2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from Products.CMFCore.interfaces import ISiteRoot
@@ -11,7 +11,9 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from edrnsite.vanity import VANITY_UPDATE_KEY
 from Products.CMFCore.utils import getToolByName
 
+
 grok.templatedir('templates')
+
 
 class _VanityView(grok.View):
     '''Common view for vanity welcomes, nags, etc.'''
@@ -22,7 +24,7 @@ class _VanityView(grok.View):
         self.plone_portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
         smd = getToolByName(context, 'session_data_manager')
         session = smd.getSessionData(create=False)
-        if session and session.has_key(VANITY_UPDATE_KEY):
+        if session and session.has_key(VANITY_UPDATE_KEY):  # PEP 8 (W601) ``session`` doesn't support "in"
             del session[VANITY_UPDATE_KEY]
     def haveUser(self):
         return not self.plone_portal_state.anonymous()
@@ -38,7 +40,7 @@ class _VanityView(grok.View):
 
 class VanityWelcomeView(_VanityView):
     '''View to welcome users to their new vanity pages.'''
-    
+
+
 class VanityNagView(_VanityView):
     '''View to remind users to visit their vanity pages.'''
-

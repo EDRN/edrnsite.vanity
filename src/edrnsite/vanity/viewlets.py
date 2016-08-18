@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Copyright 2013 California Institute of Technology. ALL RIGHTS
+# Copyright 2013–2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from Acquisition import aq_inner
@@ -10,8 +10,10 @@ from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
 import json
 
+
 grok.context(IContentish)
 grok.templatedir('templates')
+
 
 class VanityReminderViewlet(grok.Viewlet):
     '''Viewlet that adds a jquery UI overlay to remind you to visit your vanity page.'''

@@ -4,12 +4,12 @@
 
 u'''EDRN Site Vanity — functional doctests.'''
 
-import doctest
-import unittest2 as unittest
+import doctest, unittest
 from plone.testing import layered
 from edrnsite.vanity.testing import EDRN_SITE_VANITY_FUNCTIONAL_TESTING as LAYER
 
 optionFlags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE | doctest.REPORT_ONLY_FIRST_FAILURE)
+
 
 def test_suite():
     return unittest.TestSuite([

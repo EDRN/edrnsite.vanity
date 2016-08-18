@@ -1,11 +1,12 @@
 # encoding: utf-8
-# Copyright 2012 California Institute of Technology. ALL RIGHTS
+# Copyright 2012–2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting
 from Testing.ZopeTestCase.utils import setupCoreSessions
 from Products.CMFCore.utils import getToolByName
 from eke.site.testing import EKE_SITE_FIXTURE
+
 
 class EDRNSiteVanityLayer(PloneSandboxLayer):
     defaultBases = (EKE_SITE_FIXTURE,)
@@ -17,7 +18,8 @@ class EDRNSiteVanityLayer(PloneSandboxLayer):
         wfTool = getToolByName(portal, 'portal_workflow')
         wfTool.setDefaultChain('plone_workflow')
         self.applyProfile(portal, 'edrnsite.vanity:default')
-    
+
+
 EDRN_SITE_VANITY = EDRNSiteVanityLayer()
 EDRN_SITE_VANITY_INTEGRATION_TESTING = IntegrationTesting(
     bases=(EDRN_SITE_VANITY,),

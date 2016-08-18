@@ -1,5 +1,59 @@
 # encoding: utf-8
-# Copyright 2012 California Institute of Technology. ALL RIGHTS
+# Copyright 2012–2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
-'''EDRN Site Vanity Pages: upgrades.'''
+u'''EDRN Site Vanity Pages: upgrades.'''
+
+from Products.CMFCore.WorkflowCore import WorkflowException
+from edrnsite.vanity import DEFAULT_PROFILE
+import plone.api
+
+
+def removeContributorRoleFromSites(context):
+    u'''Remove the "Can Add" (Contributor) permission from Site objects.  We're putting bespokepages
+    under a top level /member-pages folder now.'''
+    catalog = plone.api.portal.get_tool('portal_catalog')
+    results = catalog(portal_type='Site')
+    for site in [i.getObject() for i in results]:
+        localRoles = site.get_local_roles()
+        found = False
+        for principle, roles in localRoles:
+            if principle == 'AuthenticatedUsers':
+                if u'Contributor' in roles:
+                    found = True
+                    break
+        if found:
+            site.manage_setLocalRoles('AuthenticatedUsers', [])
+
+
+def addMembersFolder(context):
+    u'''Add the top-level /member-pages folder so that we have a place for member pages.'''
+    portal = plone.api.portal.get()
+    if not 'member-pages' in portal.keys():
+        folder = portal[portal.invokeFactory('Folder', 'member-pages')]
+        folder.setTitle(u'Member Pages')
+        folder.setDescription(u'Pages highlighting individual members of the Early Detection Research Network')
+        folder.setExcludeFromNav(True)
+        wfTool = plone.api.portal.get_tool('portal_workflow')
+        state = wfTool.getInfoFor(folder, 'review_state')
+        if state != 'published':
+            try:
+                wfTool.doActionFor(folder, 'publish')
+            except WorkflowException:
+                pass
+        localRoles = folder.get_local_roles()
+        found = False
+        for principal, roles in localRoles:
+            if principal == 'AuthenticatedUsers':
+                if u'Contributor' in roles:
+                    found = True
+                    break
+        if not found:
+            folder.manage_setLocalRoles('AuthenticatedUsers', ['Contributor'])
+        folder.reindexObject()
+
+
+def enableVanityPages(context):
+    u'''Enable vanity pages in the configuration registry.'''
+    context.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')
+    context.runImportStepFromProfile(DEFAULT_PROFILE, 'typeinfo')
