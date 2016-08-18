@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Copyright 2013 California Institute of Technology. ALL RIGHTS
+# Copyright 2013–2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 '''Tests for the setup of Plone by this package.'''
@@ -10,6 +10,7 @@ from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 import unittest2 as unittest
+
 
 class SetupTest(unittest.TestCase):
     layer = EDRN_SITE_VANITY_INTEGRATION_TESTING
@@ -24,13 +25,8 @@ class SetupTest(unittest.TestCase):
         self.failUnless('vanity' in userActions, 'no vanity user action installed')
         vanity, logout = userActions.index('vanity'), userActions.index('logout')
         self.failUnless(vanity < logout, 'vanity action must appear above logout')
-    def testTypes(self):
-        '''Check types'''
-        typesTool = getToolByName(self.portal, 'portal_types')
-        site = typesTool['Site']
-        self.failUnless('edrnsite.vanity.bespokepage' in site.allowed_content_types, 'Bespoke Pages not allowed in Sites')
     def testRegistry(self):
         '''Check registry'''
         registry = getUtility(IRegistry)
         enable = registry['edrnsite.vanity.enable']
-        self.failIf(enable, 'edrnsite.vanity.enable should default to False')
+        self.failUnless(enable, 'edrnsite.vanity.enable should default to True')

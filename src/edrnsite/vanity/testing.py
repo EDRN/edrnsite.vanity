@@ -2,14 +2,13 @@
 # Copyright 2012–2016 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
-from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting
+from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting, PLONE_FIXTURE
 from Testing.ZopeTestCase.utils import setupCoreSessions
 from Products.CMFCore.utils import getToolByName
-from eke.site.testing import EKE_SITE_FIXTURE
 
 
 class EDRNSiteVanityLayer(PloneSandboxLayer):
-    defaultBases = (EKE_SITE_FIXTURE,)
+    defaultBases = (PLONE_FIXTURE,)
     def setUpZope(self, app, configurationContext):
         import edrnsite.vanity
         setupCoreSessions(app)

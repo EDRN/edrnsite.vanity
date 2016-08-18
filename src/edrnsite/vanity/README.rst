@@ -58,13 +58,13 @@ personal attributes, etc.  For now, they can be added anywhere::
     >>> browser.getControl(name='form.widgets.specialty').value = u'Proctology'
     >>> browser.getControl(name='form.widgets.phone').value = u'+33 1 43 54 23 31'
     >>> browser.getControl(name='form.buttons.save').click()
-    >>> 'john-yaya' in portal.keys()
+    >>> 'edrnsite-vanity-bespokepage' in portal.keys()
     True
 
 Notice that you can toggle display of your email address.  As created above,
 John Yaya's email address is visible::
 
-    >>> browser.open(portalURL + '/john-yaya')
+    >>> browser.open(portalURL + '/edrnsite-vanity-bespokepage')
     >>> u'yaya@anus-mastery.com' in browser.contents
     True
 
@@ -73,7 +73,7 @@ But it's not shown if the box is unchecked::
     >>> browser.getLink('Update It').click()
     >>> browser.getControl(name='form.widgets.showMbox:list').value = False
     >>> browser.getControl(name='form.buttons.save').click()
-    >>> browser.open(portalURL + '/john-yaya')
+    >>> browser.open(portalURL + '/edrnsite-vanity-bespokepage')
     >>> u'yaya@anus-mastery.com' in browser.contents
     False
 
