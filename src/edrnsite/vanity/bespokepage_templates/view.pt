@@ -7,7 +7,10 @@
     metal:use-macro='context/main_template/macros/master'>
     <head>
         <title>Bespoke Page View</title>
-        <metal:block fill-slot='top_slot' tal:define='dummy_disable_border python:request.set("disable_border", 1);'/>
+        <metal:block fill-slot='top_slot' tal:define='
+            dummy_disable_border python:request.set("disable_border", 1);
+            dummy_disable_right  python:request.set("disable_plone.rightcolumn", 1);
+        '/>
         <metal:block fill-slot='style_slot'>
             <link rel='stylesheet' type='text/css' tal:define='navroot context/@@plone_portal_state/navigation_root_url'
                 tal:attributes='href string:${navroot}/++resource++edrnsite.vanity/bespoke.css'
@@ -47,14 +50,32 @@
                         </a>
                     </p>
 
+                    <table>
+                        <tr>
+                            <td style='padding-right: 1em;'>
+                                <h2 i18n:translate='bespokeBiomarkers'>My Biomarkers</h2>
+                                <p class='discreet' i18n:translate='noBespokeBiomarkers'>
+                                    I don't have any biomarkers yet.
+                                </p>
+                            </td>
+                            <td style='padding-right: 1em;'>
+                                <h2 i18n:translate='bespokeData'>My Science Data</h2>
+                                <p class='discreet' i18n:translate='noBespokeData'>
+                                    I don't have any science data yet.
+                                </p>
+                            </td>
+                            <td>
+                                <h2 i18n:translate='bespokeOrganGroups'>My Organ Groups</h2>
+                                <p class='discreet' i18n:translate='noBespokeOrganGroups'>
+                                    I don't belong to any organ groups yet.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
                     <h2 i18n:translate='bespokePubs'>My Publications</h2>
-                    <p class='discreet' i18n:translate='noBespokePubs'>I've claimed no publications as my own.</p>
-                    <h2 i18n:translate='bespokeProtocols'>My Protocols</h2>
-                    <p class='discreet' i18n:translate='noBespokeProtocols'>I've claimed no protocols as my own.</p>
-                    <h2 i18n:translate='bespokeData'>My Science Data</h2>
-                    <p class='discreet' i18n:translate='noBespokeData'>I've claimed no science data yet.</p>
+                    <p class='discreet' i18n:translate='noBespokePubs'>I don't have any publications yet.</p>
                 </div>
-                
+
                 <div tal:condition='isMine' tal:omit-tag=''>
                     <p tal:condition='view/isPublic' class='yourVanityPage'>
                         <span class='bespokeMessage' i18n:translate='bespokePublic'>
