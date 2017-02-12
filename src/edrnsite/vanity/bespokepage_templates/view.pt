@@ -52,23 +52,41 @@
 
                     <table>
                         <tr>
-                            <td style='padding-right: 1em;'>
+                            <td style='padding-right: 1em; vertical-align: top;' tal:define='biomarkers view/biomarkers'>
                                 <h2 i18n:translate='bespokeBiomarkers'>My Biomarkers</h2>
-                                <p class='discreet' i18n:translate='noBespokeBiomarkers'>
+                                <p class='discreet' i18n:translate='noBespokeBiomarkers' tal:condition='not:biomarkers'>
                                     I don't have any biomarkers yet.
                                 </p>
+                                <ul tal:condition='biomarkers'>
+                                    <li tal:repeat='biomarker biomarkers'>
+                                        <a href='#' title='A really snazzy biomarker'
+                                            tal:content='python:biomarker["title"]'
+                                            tal:attributes='
+                                                href python:biomarker["url"];
+                                                title python:biomarker["description"];
+                                            '>
+                                            SNAZ-1
+                                        </a>
+                                    </li>
+                                </ul>
                             </td>
-                            <td style='padding-right: 1em;'>
+                            <td style='padding-right: 1em; vertical-align: top;' tal:define='datasets view/datasets'>
                                 <h2 i18n:translate='bespokeData'>My Science Data</h2>
-                                <p class='discreet' i18n:translate='noBespokeData'>
+                                <p class='discreet' i18n:translate='noBespokeData' tal:condition='not:datasets'>
                                     I don't have any science data yet.
                                 </p>
-                            </td>
-                            <td>
-                                <h2 i18n:translate='bespokeOrganGroups'>My Organ Groups</h2>
-                                <p class='discreet' i18n:translate='noBespokeOrganGroups'>
-                                    I don't belong to any organ groups yet.
-                                </p>
+                                <ul tal:condition='datasets'>
+                                    <li tal:repeat='dataset datasets'>
+                                        <a href='#' title='A really spiffy dataset'
+                                            tal:content='python:dataset["title"]'
+                                            tal:attributes='
+                                                href python:dataset["url"];
+                                                title python:dataset["description"];
+                                            '>
+                                            spiffy.dat
+                                        </a>
+                                    </li>
+                                </ul>
                             </td>
                         </tr>
                     </table>

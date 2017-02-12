@@ -6,15 +6,20 @@
 
 from Acquisition import aq_inner
 from edrnsite.vanity import MESSAGE_FACTORY as _
+from eke.biomarker.interfaces import IBiomarker
+from eke.ecas.interfaces import IDataset
 from five import grok
-from plone.directives import dexterity
-from plone.directives import form
+from plone.directives import dexterity, form
+from plone.memoize import view
 from plone.namedfile.field import NamedImage
 from zope import schema
 from zope.component import getMultiAdapter
-import re
+import re, plone.api
+
 
 _mboxRE = re.compile(r'^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$', re.IGNORECASE)
+
+
 def _checkEmail(value):
     '''Check if the given value is an email address.'''
     return _mboxRE.match(value) is not None
@@ -81,8 +86,7 @@ class IBespokePage(form.Schema):
         description=_(u'Unique identifier of the principal investigator of the site where this person works.'),
         required=False,
     )
-    
-    
+
 
 class View(grok.View):
     '''View for a bespoke page.'''
@@ -117,3 +121,31 @@ class View(grok.View):
         return self._getCanonicalURL() + '/content_status_modify?workflow_action=show'
     def privateURL(self):
         return self._getCanonicalURL() + '/content_status_modify?workflow_action=hide'
+    @view.memoize
+    def biomarkers(self):
+        context = aq_inner(self.context)
+        catalog = plone.api.portal.get_tool('portal_catalog')
+        results = catalog(
+            object_provides=IBiomarker.__identifier__,
+            sort_on='sortable_title',
+            piUIDs=[context.piUID]
+        )
+        return [{
+            'title': i['Title'].decode('utf-8'),
+            'description': i['Description'].decode('utf-8'),
+            'url': i.getURL()
+        } for i in results]
+    @view.memoize
+    def datasets(self):
+        context = aq_inner(self.context)
+        piUID = context.piUID
+        catalog = plone.api.portal.get_tool('portal_catalog')
+        results = catalog(object_provides=IDataset.__identifier__, sort_on='sortable_title')
+        # Sadly we have to wake each dataset since the 'piUIDs' field isn't getting indexed, possibly
+        # because it's a computed field.
+        import pdb;pdb.set_trace()
+        return [{
+            'title': i['Title'].decode('utf-8'),
+            'description': i['Description'].decode('utf-8'),
+            'url': i.getURL()
+        } for i in results if piUID in i.getObject().piUIDs]

@@ -14,6 +14,7 @@ from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 
 # Vanity
 from edrnsite.vanity import VANITY_UPDATE_KEY, BESPOKE_WELCOME, BESPOKE_OLD, NAG_LIMIT, vanityPagesEnabled
+from eke.site.interfaces import IPerson
 
 # Zope component arch
 from zope.component import getUtility
@@ -59,12 +60,22 @@ def checkVanityPage(event):
     session = sdm.getSessionData(create=True)
     if not memberPageID in memberFolder:
         try:
+            _logger.info("Finding user %s's Person page", user.getUserId())
+            catalog = plone.api.portal.get_tool('portal_catalog')
+            results = catalog(object_provides=IPerson.__identifier__, accountName=user.getUserId())
+            if not results:
+                _logger.info("User %s doesn't have a Person page, so no bespoke page either", user.getUserId())
+                return
+            elif len(results) > 1:
+                _logger.info("User %s has multiple Person pages, which is weird.  We'll use the first one")
+            piUID = results[0]['piUID'].decode('utf-8')
             _logger.info("User %s doesn't have a bespoke page; creating one", memberPageID)
             memberPage = createContentInContainer(
                 memberFolder,
                 'edrnsite.vanity.bespokepage',
                 id=memberPageID,
-                title=unicode(user.getProperty('fullname', u'UNKNOWN'))  # FIXME: not i18n
+                title=unicode(user.getProperty('fullname', u'UNKNOWN')),  # FIXME: not i18n
+                piUID=piUID
             )
             memberPage.reindexObject()
             session.set(VANITY_UPDATE_KEY, BESPOKE_WELCOME)

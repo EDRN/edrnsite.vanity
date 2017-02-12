@@ -26,6 +26,9 @@ _entryPoints     = {
 _requirements = [
     'setuptools',
     'collective.autopermission',
+    'eke.biomarker',
+    'eke.ecas',
+    'eke.site',
     'Pillow',
     'plone.api',
     'plone.app.dexterity [grok]',

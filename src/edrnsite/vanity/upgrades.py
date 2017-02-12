@@ -57,3 +57,13 @@ def enableVanityPages(context):
     u'''Enable vanity pages in the configuration registry.'''
     context.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')
     context.runImportStepFromProfile(DEFAULT_PROFILE, 'typeinfo')
+    # While we're here, let's create a page for a demo user
+    portal = plone.api.portal.get()
+    bwh = portal.unrestrictedTraverse('sites/70-brigham-and-womens-hospital')
+    piUID = bwh['cramer-daniel'].piUID
+    seeyan = bwh[bwh.invokeFactory('Person', 'kelly-seeyan')]
+    seeyan.accountName = 'seeyan'
+    seeyan.givenName = 'Seeyan'
+    seeyan.piUID = piUID
+    seeyan.surname = 'Kelly'
+    seeyan.reindexObject()
