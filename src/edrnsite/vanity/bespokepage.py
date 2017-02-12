@@ -143,7 +143,6 @@ class View(grok.View):
         results = catalog(object_provides=IDataset.__identifier__, sort_on='sortable_title')
         # Sadly we have to wake each dataset since the 'piUIDs' field isn't getting indexed, possibly
         # because it's a computed field.
-        import pdb;pdb.set_trace()
         return [{
             'title': i['Title'].decode('utf-8'),
             'description': i['Description'].decode('utf-8'),
