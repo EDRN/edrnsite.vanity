@@ -68,14 +68,20 @@ def checkVanityPage(event):
                 return
             elif len(results) > 1:
                 _logger.info("User %s has multiple Person pages, which is weird.  We'll use the first one")
-            piUID = results[0]['piUID'].decode('utf-8')
+            personObject = results[0].getObject()
             _logger.info("User %s doesn't have a bespoke page; creating one", memberPageID)
             memberPage = createContentInContainer(
                 memberFolder,
                 'edrnsite.vanity.bespokepage',
                 id=memberPageID,
                 title=unicode(user.getProperty('fullname', u'UNKNOWN')),  # FIXME: not i18n
-                piUID=piUID
+                piUID=personObject.piUID,
+                mbox=personObject.mbox,
+                phone=personObject.phone,
+                showMbox=False,
+                edrnTitle=personObject.edrnTitle,
+                specialty=personObject.specialty,
+                memberType=personObject.memberType,
             )
             memberPage.reindexObject()
             session.set(VANITY_UPDATE_KEY, BESPOKE_WELCOME)

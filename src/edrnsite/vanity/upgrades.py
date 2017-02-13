@@ -63,7 +63,19 @@ def enableVanityPages(context):
     piUID = bwh['cramer-daniel'].piUID
     seeyan = bwh[bwh.invokeFactory('Person', 'kelly-seeyan')]
     seeyan.accountName = 'seeyan'
-    seeyan.givenName = 'Seeyan'
+    seeyan.degrees = [u'BS CS', u'BS Tech Comm']
+    seeyan.edrnTitle = u'Technologist'
+    seeyan.givenName = u'Seeyan'
+    seeyan.investigatorStatus = u'Peon'
+    seeyan.mailingAddress = u'PO Box 169-429'
+    seeyan.mbox = u'sean.kelly@jpl.nasa.gov'
+    seeyan.memberType = u'Informatics Center'
+    seeyan.phone = u'+1 469 555 5419'
+    seeyan.physicalAddress = u'1213 San Saba Court'
     seeyan.piUID = piUID
+    seeyan.salutation = u'Mr'
+    seeyan.shippingAddress = u'1213 San Saba Court'
+    seeyan.specialty = u'Informatics'
+    seeyan.secureSiteRole = u'Antagonist'
     seeyan.surname = 'Kelly'
     seeyan.reindexObject()

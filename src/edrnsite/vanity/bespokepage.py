@@ -59,19 +59,13 @@ class IBespokePage(form.Schema):
         required=False,
     )
     specialty = schema.TextLine(
-        title=_(u'Speciality'),
+        title=_(u'Specialty'),
         description=_(u'Your area of specialization.'),
         required=False,
     )
     photograph = NamedImage(
         title=_(u'Photograph'),
         description=_(u'Upload a photograph of yourself. Please, keep it tasteful.'),
-        required=False,
-    )
-    dexterity.write_permission(siteName='cmf.ManagePortal')
-    siteName = schema.TextLine(
-        title=_(u'Site Name'),
-        description=_(u'Name of the site where you work.'),
         required=False,
     )
     dexterity.write_permission(memberType='cmf.ManagePortal')

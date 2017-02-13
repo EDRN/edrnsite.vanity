@@ -41,15 +41,18 @@
 
                 <div class='bespokeBody'>
                     <h2 i18n:translate='bespokePersonals'>Personal Info</h2>
-                    <p tal:condition='context/showMbox|nothing'>
-                        <label for='mbox' i18n:translate='labelMbox'>Email Address:</label>
-                        <a id='mbox' href='#' tal:attributes='href string:mailto:${context/mbox}'>
-                            <code tal:content='context/mbox'>
-                                whoever@bob.com
-                            </code>
-                        </a>
-                    </p>
-
+                    <dl>
+                        <tal:if condition='context/showMbox|nothing'>
+                            <dt i18n:translate='emailAddress'>Email Address:</dt>
+                            <dd tal:content='context/mbox'>whowever@bob.com</dd>
+                        </tal:if>
+                        <dt i18n:translate='specialty'>Specialty:</dt>
+                        <dd tal:content='context/specialty'>Messing around</dd>
+                        <dt i18n:translate='edrnTitle'>EDRN Title:</dt>
+                        <dd tal:content='context/edrnTitle'>Chief Jester</dd>
+                        <dt i18n:translate='telephone'>Telephone:</dt>
+                        <dd tal:content='context/phone'>+1 555 555 5555</dd>
+                    </dl>
                     <table>
                         <tr>
                             <td style='padding-right: 1em; vertical-align: top;' tal:define='biomarkers view/biomarkers'>

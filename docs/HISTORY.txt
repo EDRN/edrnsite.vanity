@@ -27,7 +27,7 @@ issue tracker at https://oodt.jpl.nasa.gov/jira/browse/CA.
 1.0.1 — More Flesh
 ------------------
 
-• Additional attributes on bespoke pages: email, phone, EDRN title, speciality
+• Additional attributes on bespoke pages: email, phone, EDRN title, specialty
 • Control panel to enable/disable vanity page creation, nagging
 • Make vanity pages compatible with Members List
 
