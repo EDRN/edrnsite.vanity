@@ -42,17 +42,20 @@
                 <div class='bespokeBody'>
                     <h2 i18n:translate='bespokePersonals'>Personal Info</h2>
                     <dl>
-                        <tal:if condition='context/showMbox|nothing'>
-                            <dt i18n:translate='emailAddress'>Email Address:</dt>
-                            <dd tal:content='context/mbox'>whowever@bob.com</dd>
-                        </tal:if>
                         <dt i18n:translate='specialty'>Specialty:</dt>
                         <dd tal:content='context/specialty'>Messing around</dd>
                         <dt i18n:translate='edrnTitle'>EDRN Title:</dt>
                         <dd tal:content='context/edrnTitle'>Chief Jester</dd>
                         <dt i18n:translate='telephone'>Telephone:</dt>
-                        <dd tal:content='context/phone'>+1 555 555 5555</dd>
+                        <dd tal:content='context/person/phone|nothing'>+1 555 555 5555</dd>
+                        <tal:if condition='context/showMbox|nothing'>
+                            <dt i18n:translate='emailAddress'>Email Address:</dt>
+                            <dd tal:content='context/person/mbox|nothing'>whowever@bob.com</dd>
+                        </tal:if>
                     </dl>
+                    <p class='discreet'>To update contact information, please visit the
+                        <a href='https://www.compass.fhcrc.org/enterEDRN'>Data Management and Coordinating Center</a>.
+                    </p>
                     <table>
                         <tr>
                             <td style='padding-right: 1em; vertical-align: top;' tal:define='biomarkers view/biomarkers'>

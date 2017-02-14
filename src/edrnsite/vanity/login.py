@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Copyright 2013–2016 California Institute of Technology. ALL RIGHTS
+# Copyright 2013–2017 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 u'''Loging event handling — create a vanity page or remind people to visit theirs.'''
@@ -76,12 +76,11 @@ def checkVanityPage(event):
                 id=memberPageID,
                 title=unicode(user.getProperty('fullname', u'UNKNOWN')),  # FIXME: not i18n
                 piUID=personObject.piUID,
-                mbox=personObject.mbox,
-                phone=personObject.phone,
                 showMbox=False,
                 edrnTitle=personObject.edrnTitle,
                 specialty=personObject.specialty,
                 memberType=personObject.memberType,
+                person=personObject
             )
             memberPage.reindexObject()
             session.set(VANITY_UPDATE_KEY, BESPOKE_WELCOME)

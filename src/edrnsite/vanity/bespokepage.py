@@ -1,5 +1,5 @@
 # encoding: utf-8
-# Copyright 2012 California Institute of Technology. ALL RIGHTS
+# Copyright 2012–2017 California Institute of Technology. ALL RIGHTS
 # RESERVED. U.S. Government Sponsorship acknowledged.
 
 '''Bespoke page.'''
@@ -8,10 +8,13 @@ from Acquisition import aq_inner
 from edrnsite.vanity import MESSAGE_FACTORY as _
 from eke.biomarker.interfaces import IBiomarker
 from eke.ecas.interfaces import IDataset
+from eke.site.interfaces import IPerson
 from five import grok
 from plone.directives import dexterity, form
+from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.memoize import view
 from plone.namedfile.field import NamedImage
+from z3c.relationfield.schema import RelationChoice
 from zope import schema
 from zope.component import getMultiAdapter
 import re, plone.api
@@ -42,17 +45,6 @@ class IBespokePage(form.Schema):
         description=_(u'Check the box if you want your email address displayed publicly. Leave it unchecked to keep it hidden.'),
         required=False,
     )
-    mbox = schema.TextLine(
-        title=_(u'Email Address'),
-        description=_(u"Address of your email inbox. We won't share it! But check the box above if want it shown to visitors."),
-        required=True,
-        constraint=_checkEmail
-    )
-    phone = schema.TextLine(
-        title=_(u'Telephone Number'),
-        description=_(u"Your phone number. (This will be visible to anyone, so clear it out if you want more privacy.)"),
-        required=False,
-    )
     edrnTitle = schema.TextLine(
         title=_(u'EDRN Title'),
         description=_(u'Title or honorific given by the Early Detection Research Network'),
@@ -79,6 +71,13 @@ class IBespokePage(form.Schema):
         title=_(u'PI UID'),
         description=_(u'Unique identifier of the principal investigator of the site where this person works.'),
         required=False,
+    )
+    dexterity.write_permission(person='cmf.ManagePortal')
+    person = RelationChoice(
+        title=_(u'Person'),
+        description=_(u'The DMCC-generated "Person" page within the portal that matches this bespoke page.'),
+        required=False,
+        source=ObjPathSourceBinder(object_provides=IPerson.__identifier__)
     )
 
 

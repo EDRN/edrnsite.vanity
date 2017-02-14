@@ -32,6 +32,7 @@ _requirements = [
     'Pillow',
     'plone.api',
     'plone.app.dexterity [grok]',
+    'plone.app.relationfield',
     'plone.formwidget.namedfile',
     'plone.namedfile>=2.0.1',
     'Products.CMFPlone',
