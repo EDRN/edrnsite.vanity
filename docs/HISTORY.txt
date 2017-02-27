@@ -6,6 +6,12 @@ identifiers appear, you can find more about them by visiting this project's
 issue tracker at https://oodt.jpl.nasa.gov/jira/browse/CA.
 
 
+1.0.5 — TBD
+-----------
+
+• CA-1493 - Bespoke pages should show protocols, then biomarkers and datasets
+
+
 1.0.4 — You're So Vain
 ----------------------
 

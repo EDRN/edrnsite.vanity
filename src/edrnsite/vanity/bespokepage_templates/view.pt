@@ -39,7 +39,11 @@
                 </div>
                 <div tal:replace='structure provider:plone.abovecontentbody'/>
 
-                <div class='bespokeBody'>
+                <div class='bespokeBody' tal:define='
+                    protocols view/protocols;
+                    onProtocols python:protocols[0];
+                    offProtocols python:protocols[1];
+                '>
                     <h2 i18n:translate='bespokePersonals'>Personal Info</h2>
                     <dl>
                         <dt i18n:translate='specialty'>Specialty:</dt>
@@ -56,48 +60,87 @@
                     <p class='discreet'>To update contact information, please visit the
                         <a href='https://www.compass.fhcrc.org/enterEDRN'>Data Management and Coordinating Center</a>.
                     </p>
-                    <table>
-                        <tr>
-                            <td style='padding-right: 1em; vertical-align: top;' tal:define='biomarkers view/biomarkers'>
-                                <h2 i18n:translate='bespokeBiomarkers'>My Biomarkers</h2>
-                                <p class='discreet' i18n:translate='noBespokeBiomarkers' tal:condition='not:biomarkers'>
-                                    I don't have any biomarkers yet.
-                                </p>
-                                <ul tal:condition='biomarkers'>
-                                    <li tal:repeat='biomarker biomarkers'>
-                                        <a href='#' title='A really snazzy biomarker'
-                                            tal:content='python:biomarker["title"]'
+
+                    <h2 i18n:translate='bespokeActiveProtocols'>My Protocols</h2>
+
+                    <p class='discreet' tal:condition='not:onProtocols' i18n:translate='bespokeNoProtocols'>
+                        I'm not participating in any protocols right now.
+                    </p>
+
+                    <table class='listing' tal:condition='onProtocols'>
+                        <thead>
+                            <tr>
+                                <th i18n:translate='bespokeProtocolName'>Protocol Name</th>
+                                <th i18n:translate='bespokeProtocolBiomarkers'>Biomarkers</th>
+                                <th i18n:translate='bespokeProtocolDatasets'>Datasets</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tal:repeat repeat='protocol onProtocols'>
+                                <tr tal:define='oddRow repeat/protocol/odd' class='odd'
+                                    tal:attributes='class python:"odd" if oddRow else "even"'>
+                                    <td>
+                                        <a href='#' title='Yeah, really nice protocol.' tal:content='protocol/title'
                                             tal:attributes='
-                                                href python:biomarker["url"];
-                                                title python:biomarker["description"];
-                                            '>
-                                            SNAZ-1
+                                            href protocol/absolute_url;
+                                            title protocol/description;
+                                        '>
+                                            A Methylation Protocol Again
                                         </a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td style='padding-right: 1em; vertical-align: top;' tal:define='datasets view/datasets'>
-                                <h2 i18n:translate='bespokeData'>My Science Data</h2>
-                                <p class='discreet' i18n:translate='noBespokeData' tal:condition='not:datasets'>
-                                    I don't have any science data yet.
-                                </p>
-                                <ul tal:condition='datasets'>
-                                    <li tal:repeat='dataset datasets'>
-                                        <a href='#' title='A really spiffy dataset'
-                                            tal:content='python:dataset["title"]'
-                                            tal:attributes='
-                                                href python:dataset["url"];
-                                                title python:dataset["description"];
-                                            '>
-                                            spiffy.dat
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
+                                    </td>
+                                    <td style='text-align: right;' tal:content='python:len(protocol.biomarkers)'>
+                                        123
+                                    </td>
+                                    <td style='text-align: right;' tal:content='python:len(protocol.datasets)'>
+                                        456
+                                    </td>
+                                </tr>
+                            </tal:repeat>
+                        </tbody>
                     </table>
+
                     <h2 i18n:translate='bespokePubs'>My Publications</h2>
                     <p class='discreet' i18n:translate='noBespokePubs'>I don't have any publications yet.</p>
+
+                    <h2 i18n:translate='bespokeInactiveProtocols'>My Inactive Protocols</h2>
+                    <p class='discreet' tal:condition='not:offProtocols' i18n:translate='bespokeNoInactiveProtocols'>
+                        I don't have any past protocols. Whew!
+                    </p>
+
+                    <table class='listing' tal:condition='offProtocols'>
+                        <thead>
+                            <tr>
+                                <th i18n:translate='bespokeProtocolName'>Protocol Name</th>
+                                <th i18n:translate='bespokeProtocolBiomarkers'>Biomarkers</th>
+                                <th i18n:translate='bespokeProtocolDatasets'>Datasets</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tal:repeat repeat='protocol offProtocols'>
+                                <tr tal:define='oddRow repeat/protocol/odd' class='odd'
+                                    tal:attributes='class python:"odd" if oddRow else "even"'>
+                                    <td>
+                                        <a href='#' title='Yeah, really nice protocol.' tal:content='protocol/title'
+                                            tal:attributes='
+                                            href protocol/absolute_url;
+                                            title protocol/description;
+                                        '>
+                                            A Methylation Protocol Again
+                                        </a>
+                                    </td>
+                                    <td style='text-align: right;' tal:content='python:len(protocol.biomarkers)'>
+                                        123
+                                    </td>
+                                    <td style='text-align: right;' tal:content='python:len(protocol.datasets)'>
+                                        456
+                                    </td>
+                                </tr>
+                            </tal:repeat>
+                        </tbody>
+                    </table>
+
+
+
                 </div>
 
                 <div tal:condition='isMine' tal:omit-tag=''>

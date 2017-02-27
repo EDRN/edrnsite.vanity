@@ -29,6 +29,7 @@ _requirements = [
     'eke.biomarker',
     'eke.ecas',
     'eke.site',
+    'eke.study',
     'Pillow',
     'plone.api',
     'plone.app.dexterity [grok]',

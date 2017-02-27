@@ -9,6 +9,7 @@ from edrnsite.vanity import MESSAGE_FACTORY as _
 from eke.biomarker.interfaces import IBiomarker
 from eke.ecas.interfaces import IDataset
 from eke.site.interfaces import IPerson
+from eke.study.interfaces import IProtocol
 from five import grok
 from plone.directives import dexterity, form
 from plone.formwidget.contenttree import ObjPathSourceBinder
@@ -114,6 +115,23 @@ class View(grok.View):
         return self._getCanonicalURL() + '/content_status_modify?workflow_action=show'
     def privateURL(self):
         return self._getCanonicalURL() + '/content_status_modify?workflow_action=hide'
+    @view.memoize
+    def protocols(self):
+        context = aq_inner(self.context)
+        catalog = plone.api.portal.get_tool('portal_catalog')
+        results = catalog(
+            object_provides=IProtocol.__identifier__,
+            sort_on='sortable_title',
+            piUID=context.piUID
+        )
+        actives, inactives = [], []
+        for i in results:
+            protocol = i.getObject()
+            if protocol.finishDate:
+                inactives.append(protocol)
+            else:
+                actives.append(protocol)
+        return actives, inactives
     @view.memoize
     def biomarkers(self):
         context = aq_inner(self.context)

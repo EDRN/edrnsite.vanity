@@ -5,10 +5,9 @@
 from Acquisition import aq_inner
 from edrnsite.vanity import VANITY_UPDATE_KEY, BESPOKE_WELCOME, BESPOKE_OLD
 from five import grok
-from plone.app.layout.viewlets.interfaces import IPortalTop, IHtmlHead
+from plone.app.layout.viewlets.interfaces import IPortalTop
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
-import json
 
 
 grok.context(IContentish)
