@@ -78,4 +78,24 @@ def enableVanityPages(context):
     seeyan.specialty = u'Informatics'
     seeyan.secureSiteRole = u'Antagonist'
     seeyan.surname = 'Kelly'
+    plone.api.content.transition(obj=seeyan, transition='publish')
     seeyan.reindexObject()
+    haether = bwh[bwh.invokeFactory('Person', 'kincaid-haether')]
+    haether.accountName = 'haether'
+    haether.degrees = [u'BS Biology', u'MS Bioinformatics']
+    haether.edrnTitle = u'Operations Lead'
+    haether.givenName = u'Haether'
+    haether.investigatorStatus = u'Peon'
+    haether.mailingAddress = u'PO Box 429-169'
+    haether.mbox = u'heather.kincaid@jpl.nasa.gov'
+    haether.memberType = u'Informatics Center'
+    haether.phone = u'+1 469 555 3129'
+    haether.physicalAddress = u'1610 5th St'
+    haether.piUID = piUID
+    haether.salutation = u'Mr'
+    haether.shippingAddress = u'1610 5th St'
+    haether.specialty = u'Informatics'
+    haether.secureSiteRole = u'Antagonist'
+    haether.surname = 'Kincaid'
+    plone.api.content.transition(obj=haether, transition='publish')
+    haether.reindexObject()
