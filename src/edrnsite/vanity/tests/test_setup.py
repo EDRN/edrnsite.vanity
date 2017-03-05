@@ -29,4 +29,4 @@ class SetupTest(unittest.TestCase):
         '''Check registry'''
         registry = getUtility(IRegistry)
         enable = registry['edrnsite.vanity.enable']
-        self.failUnless(enable, 'edrnsite.vanity.enable should default to True')
+        self.failIf(enable, 'edrnsite.vanity.enable should default to False')
