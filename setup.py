@@ -9,7 +9,7 @@ import os.path
 # ------------
 
 _name            = 'edrnsite.vanity'
-_version         = '1.0.5'
+_version         = '1.0.6'
 _description     = 'EDRN Site Vanity'
 _author          = 'Sean Kelly'
 _authorEmail     = 'sean.kelly@jpl.nasa.gov'
