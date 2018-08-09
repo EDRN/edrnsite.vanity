@@ -9,7 +9,7 @@ from edrnsite.vanity.testing import EDRN_SITE_VANITY_INTEGRATION_TESTING
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-import unittest2 as unittest
+import unittest
 
 
 class SetupTest(unittest.TestCase):
